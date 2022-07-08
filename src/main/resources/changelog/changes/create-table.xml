@@ -1,0 +1,62 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="v1_create_student_table" author="hasan.karabas" >
+        <createTable tableName="student">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastupdate" type="datetime" >
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1_create_course_table" author="hasan.karabas">
+        <createTable tableName="course">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="unique_name"/>
+            </column>
+            <column name="lastupdate" type="datetime" >
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="v1_create_course_registration_table" author="hasan.karabas">
+        <createTable  tableName="student_course_registration">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_student_id"
+                             references="student(id)"/>
+            </column>
+
+            <column name="course_id"  type="int">
+                <constraints nullable="false"
+                             foreignKeyName="fk_course_id"
+                             references="course(id)"/>
+            </column>
+            <column name="registered_at" type="datetime">
+
+            </column>
+                <column name="lastupdate" type="datetime" >
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
